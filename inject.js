@@ -3,10 +3,11 @@ var N_KEY_CODE = 78;//Previous song
 
 document.addEventListener("keydown", function(event){
     if (event.altKey && event.keyCode == J_KEY_CODE) {
-        console.log('J fofo pressed');
+        console.log('J pressed');
         var songLinks = $('.tracks-list > .player .play');
 
-        clickThisSong(songLinks[0]);
+        currentlyPlaying = getCurrentlyPlaying();
+        clickThisSong(currentlyPlaying);
         
 
       /*
@@ -30,6 +31,10 @@ document.addEventListener("keydown", function(event){
         var e = document.createEvent('MouseEvents');
         e.initEvent('click', true, true);
         clickLink.dispatchEvent(e);
+    }
+
+    function getCurrentlyPlaying() {
+        return $('.tracks-list > .player .play.playing')[0];
     }
     
 }, false);
