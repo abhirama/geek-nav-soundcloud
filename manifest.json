@@ -1,0 +1,15 @@
+{
+  "name": "Geek navigator for SoundCloud",
+  "version": "0.1",
+  "description": "A key board based navigator for SoundCloud.",
+  "permissions": [
+    "tabs"
+  ],
+  "background_page": "background.html",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["inject.js"]
+    }
+  ]
+}
