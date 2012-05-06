@@ -3,18 +3,11 @@ var N_KEY_CODE = 78;//Previous song
 
 document.addEventListener("keydown", function(event){
     if (event.altKey && event.keyCode == J_KEY_CODE) {
-        console.log('J pressed');
-        console.log($('.tracks-list > .player > .play').length);
+        console.log('J fofo pressed');
+        var songLinks = $('.tracks-list > .player .play');
 
-        var foo = $('.tracks-list > .player .play');
-
-        console.log('Size of foo:' + foo.length);
-
-        var e = document.createEvent('MouseEvents');
-        e.initEvent( 'click', true, true );
-        foo[0].dispatchEvent(e);
+        clickThisSong(songLinks[0]);
         
-
 
       /*
       var tabNameLoc = prompt("Jump to");
@@ -32,6 +25,13 @@ document.addEventListener("keydown", function(event){
       }
       */
     }
+
+    function clickThisSong(clickLink) {
+        var e = document.createEvent('MouseEvents');
+        e.initEvent('click', true, true);
+        clickLink.dispatchEvent(e);
+    }
+    
 }, false);
 
 
