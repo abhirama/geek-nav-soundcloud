@@ -6,9 +6,7 @@ document.addEventListener("keydown", function(event){
         console.log('J pressed');
         var songLinks = $('.tracks-list > .player .play');
 
-        currentlyPlaying = getCurrentlyPlaying();
-        clickThisSong(currentlyPlaying);
-        
+        clickThisSong(getPlayLink(getNextSongBlock(getCurrentlyPlaying())));
 
       /*
       var tabNameLoc = prompt("Jump to");
@@ -30,11 +28,33 @@ document.addEventListener("keydown", function(event){
     function clickThisSong(clickLink) {
         var e = document.createEvent('MouseEvents');
         e.initEvent('click', true, true);
-        clickLink.dispatchEvent(e);
+        console.log(clickLink.toString())
+        clickLink[0].dispatchEvent(e);
     }
 
     function getCurrentlyPlaying() {
-        return $('.tracks-list > .player .play.playing')[0];
+        return $('.tracks-list > .player .play.playing').first();
+    }
+
+    function getNextSongBlock(currentlyPlaying) {
+        log('Currently playing length:' + currentlyPlaying.length);
+        var currentPlayer = currentlyPlaying.parents('.tracks-list > .player').first();    
+
+        log(currentPlayer);
+
+        log(currentPlayer.next());
+
+        var nextPlayer = currentPlayer.nextAll().first(); 
+        log('Length of next player:' + nextPlayer.length);
+        return nextPlayer;
+    }
+
+    function getPlayLink(elem) {
+        return elem.find('.play').first();
+    }
+
+    function log(str) {
+        console.log(str)
     }
     
 }, false);
