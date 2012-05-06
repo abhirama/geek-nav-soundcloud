@@ -6,7 +6,17 @@ document.addEventListener("keydown", function(event){
         console.log('J pressed');
         var songLinks = $('.tracks-list > .player .play');
 
-        clickThisSong(getPlayLink(getNextSongBlock(getCurrentlyPlaying())));
+        var nextSongBlock = getNextSongBlock(getCurrentlyPlaying());
+
+        var linkToClick;
+
+        if (!nextSongBlock.length) {
+            linkToClick = getNextPageLink();    
+        } else {
+            linkToClick = getPlayLink(nextSongBlock)
+        }
+
+        clickThisLink(linkToClick);
 
       /*
       var tabNameLoc = prompt("Jump to");
@@ -25,11 +35,11 @@ document.addEventListener("keydown", function(event){
       */
     }
 
-    function clickThisSong(clickLink) {
+    function clickThisLink(link) {
         var e = document.createEvent('MouseEvents');
         e.initEvent('click', true, true);
-        console.log(clickLink.toString())
-        clickLink[0].dispatchEvent(e);
+        console.log(link.toString())
+        link[0].dispatchEvent(e);
     }
 
     function getCurrentlyPlaying() {
@@ -51,6 +61,10 @@ document.addEventListener("keydown", function(event){
 
     function getPlayLink(elem) {
         return elem.find('.play').first();
+    }
+
+    function getNextPageLink() {
+        return $('.next_page').first();
     }
 
     function log(str) {
