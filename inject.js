@@ -4,6 +4,9 @@ var N_KEY_CODE = 78;//Previous song
 document.addEventListener("keydown", function(event){
     if (event.altKey && event.keyCode == J_KEY_CODE) {
         console.log('J pressed');
+
+        chrome.extension.sendRequest({});
+
         var songLinks = $('.tracks-list > .player .play');
 
         var nextSongBlock = getNextSongBlock(getCurrentlyPlaying());
