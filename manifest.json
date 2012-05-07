@@ -1,7 +1,7 @@
 {
-  "name": "Geek navigator for SoundCloud",
+  "name": "SoundCloudNav",
   "version": "0.1",
-  "description": "A key board based navigator for SoundCloud.",
+  "description": "A keyboard based track navigator for SoundCloud.",
   "permissions": [
     "tabs"
   ],

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<project name="geek-nav-soundcloud" basedir="." default="createZip">
+
+  <target name="createZip" description="Creates the extension zip file">
+    <zip destfile="dist/geek-nav-soundcloud.zip" basedir="." includes="*.js, *.json, *.html, *.png"/>
+  </target>
+
+</project>
