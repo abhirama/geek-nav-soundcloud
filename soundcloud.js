@@ -1,17 +1,17 @@
 chrome.extension.onRequest.addListener(
     function(request, sender, sendResponse) {
         log('Me in sound cloud got request');
-
-        var songLinks = $('.tracks-list > .player .play');
-
-        var nextSongBlock = getNextSongBlock(getCurrentlyPlaying());
-
         var linkToClick;
 
-        if (!nextSongBlock.length) {
-            linkToClick = getNextPageLink();    
-        } else {
-            linkToClick = getPlayLink(nextSongBlock)
+        if (request.next) {
+            var nextSongBlock = getNextSongBlock(getCurrentlyPlaying());
+
+            if (!nextSongBlock.length) {
+                linkToClick = getNextPageLink();    
+            } else {
+                linkToClick = getPlayLink(nextSongBlock)
+            }
+            
         }
 
         clickThisLink(linkToClick);
@@ -50,6 +50,9 @@ chrome.extension.onRequest.addListener(
 
         function log(str) {
             console.log(str)
+        }
+
+        function getFirstSong() {
         }
     }
 );
