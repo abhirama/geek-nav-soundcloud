@@ -11,7 +11,14 @@ chrome.extension.onRequest.addListener(
             } else {
                 linkToClick = getPlayLink(nextSongBlock)
             }
-            
+        } else if (request.toggle) {
+            var currentlyPlaying = getCurrentlyPlaying();
+            if (!currentlyPlaying.length) { //No song is currently paying
+                var firstSongBlock = getFirstSongBlock();
+                linkToClick = getPlayLink(firstSongBlock);
+            } else {
+                linkToClick = currentlyPlaying;
+            }
         }
 
         clickThisLink(linkToClick);
@@ -19,7 +26,7 @@ chrome.extension.onRequest.addListener(
         function clickThisLink(link) {
             var e = document.createEvent('MouseEvents');
             e.initEvent('click', true, true);
-            console.log(link.toString())
+            log(link.toString())
             link[0].dispatchEvent(e);
         }
 
@@ -49,13 +56,15 @@ chrome.extension.onRequest.addListener(
         }
 
         function log(str) {
-            console.log(str)
+            //console.log(str)
         }
 
-        function getFirstSong() {
+        function getFirstSongBlock() {
+            return $('.tracks-list > .player').first();
         }
     }
 );
+
 //Pasting jQuery as it is
 /*!
  * jQuery JavaScript Library v1.7.2
