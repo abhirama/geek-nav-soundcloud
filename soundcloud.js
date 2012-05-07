@@ -1,7 +1,57 @@
 chrome.extension.onRequest.addListener(
-  function(request, sender, sendResponse) {
-    console.log('Me in sound cloud got request');
-  }
+    function(request, sender, sendResponse) {
+        log('Me in sound cloud got request');
+
+        var songLinks = $('.tracks-list > .player .play');
+
+        var nextSongBlock = getNextSongBlock(getCurrentlyPlaying());
+
+        var linkToClick;
+
+        if (!nextSongBlock.length) {
+            linkToClick = getNextPageLink();    
+        } else {
+            linkToClick = getPlayLink(nextSongBlock)
+        }
+
+        clickThisLink(linkToClick);
+
+        function clickThisLink(link) {
+            var e = document.createEvent('MouseEvents');
+            e.initEvent('click', true, true);
+            console.log(link.toString())
+            link[0].dispatchEvent(e);
+        }
+
+        function getCurrentlyPlaying() {
+            return $('.tracks-list > .player .play.playing').first();
+        }
+
+        function getNextSongBlock(currentlyPlaying) {
+            log('Currently playing length:' + currentlyPlaying.length);
+            var currentPlayer = currentlyPlaying.parents('.tracks-list > .player').first();    
+
+            log(currentPlayer);
+
+            log(currentPlayer.next());
+
+            var nextPlayer = currentPlayer.nextAll().first(); 
+            log('Length of next player:' + nextPlayer.length);
+            return nextPlayer;
+        }
+
+        function getPlayLink(elem) {
+            return elem.find('.play').first();
+        }
+
+        function getNextPageLink() {
+            return $('.next_page').first();
+        }
+
+        function log(str) {
+            console.log(str)
+        }
+    }
 );
 //Pasting jQuery as it is
 /*!
