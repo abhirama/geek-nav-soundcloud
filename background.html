@@ -8,8 +8,7 @@ chrome.extension.onRequest.addListener(
     console.log('I am here finally');
 
     chrome.tabs.query({'url':'*://soundcloud.com/*'}, function(tabs){
-        console.log(tabs[0]);
-        chrome.tabs.update(tabs[0].id, {selected: true});
+        chrome.tabs.sendRequest(tabs[0].id, {});
     });
   }
 );

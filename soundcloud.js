@@ -1,6 +1,6 @@
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
-    'Me in sound cloud got request';
+    console.log('Me in sound cloud got request');
   }
 );
 //Pasting jQuery as it is
