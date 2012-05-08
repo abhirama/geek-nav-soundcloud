@@ -1,11 +1,15 @@
 {
   "name": "SoundCloudNav",
-  "version": "0.1",
+  "version": "0.2",
   "description": "A keyboard based track navigator for SoundCloud.",
   "permissions": [
     "tabs"
   ],
   "background_page": "background.html",
+  "icons": { "16": "icon16.png",
+           "48": "icon48.png",
+          "128": "icon128.png" 
+          },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
