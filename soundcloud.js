@@ -1,6 +1,6 @@
 chrome.extension.onRequest.addListener(
     function(request, sender, sendResponse) {
-        log('Me in sound cloud got request');
+        log('Got response');
         var linkToClick;
 
         if (request.next) {
@@ -19,6 +19,21 @@ chrome.extension.onRequest.addListener(
             } else {
                 linkToClick = currentlyPlaying;
             }
+        } else if (request.favorite) {
+            log('Got favorite request');
+            if (isLoggedIn()) { //If the user is not logged in, click on favorite opens a login window
+                log('User is logged in');    
+                var currentlyPlayingBlock = getCurrentlyPlayingBlock();
+                log(currentlyPlayingBlock);
+                var favoriteLink = getFavoriteLink(currentlyPlayingBlock);
+                log(favoriteLink);
+                if (favoriteLink.length) {//Check whether the track is already favorited
+                    linkToClick = favoriteLink;
+                }
+            } else {
+                log('User is not logged in');
+                return;
+            }
         }
 
         clickThisLink(linkToClick);
@@ -30,8 +45,24 @@ chrome.extension.onRequest.addListener(
             link[0].dispatchEvent(e);
         }
 
+        function isLoggedIn() {
+            log($('#logged-in-user'));
+
+            return !$('#logged-in-user').is(':hidden');
+        }
+
         function getCurrentlyPlaying() {
             return $('.tracks-list > .player .play.playing').first();
+        }
+
+        function getCurrentlyPlayingBlock() {
+            var currentlyPlayingLink = $('.tracks-list > .player .play.playing').first();
+            var currentPlayingBlock = currentlyPlayingLink.parents('.tracks-list > .player').first();    
+            return currentPlayingBlock;
+        }
+
+        function getFavoriteLink(playerBlock) {
+            return playerBlock.find('.pl-button.favorite.create').first();
         }
 
         function getNextSongBlock(currentlyPlaying) {
@@ -56,7 +87,7 @@ chrome.extension.onRequest.addListener(
         }
 
         function log(str) {
-            //console.log(str)
+            console.log(str)
         }
 
         function getFirstSongBlock() {

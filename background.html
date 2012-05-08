@@ -5,7 +5,7 @@ var _nameContainer = {};
 
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
-    console.log('I am here finally');
+    console.log('In background.html');
 
     chrome.tabs.query({'url':'*://soundcloud.com/*'}, function(tabs){
         chrome.tabs.sendRequest(tabs[0].id, request);
