@@ -1,13 +1,20 @@
 document.addEventListener("keydown", function(event){
     if (event.altKey && event.keyCode == 75) { //k pressed
-        log('j pressed');
+        log('k pressed');
         chrome.extension.sendRequest({
             'next': true
         });
     }
 
+    if (event.altKey && event.keyCode == 74) { //j pressed
+        log('j pressed');
+        chrome.extension.sendRequest({
+            'previous': true
+        });
+    }
+
     if (event.altKey && event.keyCode == 80) {//p pressed
-        log('n pressed');
+        log('p pressed');
         chrome.extension.sendRequest({
             'toggle': true
         });
@@ -21,7 +28,7 @@ document.addEventListener("keydown", function(event){
     }
 
     function log(str) {
-        console.log(str);
+        //console.log(str);
     }
     
 }, false);

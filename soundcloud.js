@@ -6,11 +6,22 @@ chrome.extension.onRequest.addListener(
         if (request.next) {
             var nextSongBlock = getNextSongBlock(getCurrentlyPlayingLink());
 
+            //If no trackin is playing currently, then the next page is loaded
             if (!nextSongBlock.length) {
                 linkToClick = getNextPageLink();    
             } else {
                 linkToClick = getPlayLink(nextSongBlock)
             }
+        } else if (request.previous) {
+            var previousSongBlock = getPreviousSongBlock(getCurrentlyPlayingLink());
+
+            //If no trackin is playing currently, then the previous page is loaded
+            if (!previousSongBlock.length) {
+                linkToClick = getPreviousPageLink();    
+            } else {
+                linkToClick = getPlayLink(previousSongBlock)
+            }
+        
         } else if (request.toggle) {
             var currentlyPlaying = getCurrentlyPlayingLink();
             if (!currentlyPlaying.length) { //No song is currently paying
@@ -69,6 +80,19 @@ chrome.extension.onRequest.addListener(
             return playerBlock.find('.pl-button.favorite.create').first();
         }
 
+        function getPreviousSongBlock(currentlyPlayingLink) {
+            log('Currently playing length:' + currentlyPlayingLink.length);
+            var currentPlayer = currentlyPlayingLink.parents('.tracks-list > .player').first();    
+
+            log(currentPlayer);
+
+            log(currentPlayer.next());
+
+            var previousPlayer = currentPlayer.prevAll().last(); 
+            log('Length of previous player:' + previousPlayer.length);
+            return previousPlayer;
+        }
+
         function getNextSongBlock(currentlyPlaying) {
             log('Currently playing length:' + currentlyPlaying.length);
             var currentPlayer = currentlyPlaying.parents('.tracks-list > .player').first();    
@@ -90,13 +114,18 @@ chrome.extension.onRequest.addListener(
             return $('.next_page').first();
         }
 
-        function log(str) {
-            console.log(str)
+        function getPreviousPageLink() {
+            return $('.prev_page').first();
         }
 
         function getFirstSongBlock() {
             return $('.tracks-list > .player').first();
         }
+
+        function log(str) {
+            //console.log(str)
+        }
+
     }
 );
 
