@@ -36,6 +36,10 @@ chrome.extension.onRequest.addListener(
             }
         }
 
+        if (!linkToClick) {
+            return;
+        }
+
         clickThisLink(linkToClick);
 
         function clickThisLink(link) {
