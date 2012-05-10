@@ -4,7 +4,7 @@ chrome.extension.onRequest.addListener(
         var linkToClick;
 
         if (request.next) {
-            var nextSongBlock = getNextSongBlock(getCurrentlyPlaying());
+            var nextSongBlock = getNextSongBlock(getCurrentlyPlayingLink());
 
             if (!nextSongBlock.length) {
                 linkToClick = getNextPageLink();    
@@ -12,7 +12,7 @@ chrome.extension.onRequest.addListener(
                 linkToClick = getPlayLink(nextSongBlock)
             }
         } else if (request.toggle) {
-            var currentlyPlaying = getCurrentlyPlaying();
+            var currentlyPlaying = getCurrentlyPlayingLink();
             if (!currentlyPlaying.length) { //No song is currently paying
                 var firstSongBlock = getFirstSongBlock();
                 linkToClick = getPlayLink(firstSongBlock);
@@ -23,7 +23,7 @@ chrome.extension.onRequest.addListener(
             log('Got favorite request');
             if (isLoggedIn()) { //If the user is not logged in, click on favorite opens a login window
                 log('User is logged in');    
-                var currentlyPlayingBlock = getCurrentlyPlayingBlock();
+                var currentlyPlayingBlock = getCurrentlyPlayingLinkBlock();
                 log(currentlyPlayingBlock);
                 var favoriteLink = getFavoriteLink(currentlyPlayingBlock);
                 log(favoriteLink);
@@ -55,11 +55,11 @@ chrome.extension.onRequest.addListener(
             return !$('#logged-in-user').is(':hidden');
         }
 
-        function getCurrentlyPlaying() {
+        function getCurrentlyPlayingLink() {
             return $('.tracks-list > .player .play.playing').first();
         }
 
-        function getCurrentlyPlayingBlock() {
+        function getCurrentlyPlayingLinkBlock() {
             var currentlyPlayingLink = $('.tracks-list > .player .play.playing').first();
             var currentPlayingBlock = currentlyPlayingLink.parents('.tracks-list > .player').first();    
             return currentPlayingBlock;
