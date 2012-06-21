@@ -1,2 +1,1 @@
-geek-nav-soundcloud
-===================
+A chrome extension that lets you navigate <a href='http://soundcloud.com/tracks' target='blank'>soundcloud</a> using your keyboard. Read more about it <a href='http://abhirama.wordpress.com/2012/05/10/controlling-soundcloud-from-your-keyboard/'  target='blank'>here</a>. <a href='https://chrome.google.com/webstore/detail/nopkchcbhjjeaacnipimcelfchiifaip/'  target='blank'>Install</a> the extension from chrome web store.
